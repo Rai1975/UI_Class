@@ -1,0 +1,187 @@
+/* This is an empty style sheet in CSS */
+
+.titleheader {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.mainDiv {
+
+}
+
+.header {
+    color: #eeffefff;
+    font-size: 64px;
+    margin-bottom: 0;
+}
+
+.userDetails {
+    margin-top: 0;
+    text-align: center;
+}
+
+.userText {
+    color: #555f55ff;
+    font-size: 25px
+}
+
+body {
+    background: #a3bba5;
+}
+
+.card {
+  background-color: #eeffefff;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 20px auto; /* center it */
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-content {
+  padding: 15px;
+  color: #555f55ff;
+}
+
+.card-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #555f55ff
+}
+
+.card-date {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.card-description {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.progressEntries {
+    display: flex;
+    align-items: flex-start;
+}
+
+.card {
+  background-color: #eeffef;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-title {
+  color: #555f55;
+  font-size: 22px;
+  margin: 0 0 10px 0;
+}
+
+.card-feelings {
+    width: 30px;
+    height: auto;
+    display: block;
+}
+
+.card-emotion {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card-input,
+textarea.card-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+}
+
+.card-input:focus {
+  border-color: #27c93f;
+  box-shadow: 0 0 5px rgba(39,201,63,0.5);
+}
+
+.card-button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background-color: #27c93f;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.2s;
+}
+
+.card-button:hover {
+  background-color: #00ff00;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  padding-left: 30px;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  position: absolute;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: white;
+  border: 2px solid #555f55;
+  border-radius: 4px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkbox-input:checked ~ .checkbox-custom {
+  background-color: #27c93f;
+  border-color: #27c93f;
+}
+
+.checkbox-custom::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-input:checked ~ .checkbox-custom::after {
+  display: block;
+}
