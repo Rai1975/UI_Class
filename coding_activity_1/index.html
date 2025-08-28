@@ -17,7 +17,7 @@
     <script src="js/main.js"></script>
     <div class="mainDiv">
         <div class="titleheader">
-            <h0 class="header">ProTracker</h1>
+            <h1 class="header">ProTracker</h1>
         </div>
 
         <hr>
@@ -25,95 +25,60 @@
             <p class="userText">Welcome Back, Adam</p>
         </div>
 
-        <div class="userDetails">
-            <p class="userText"> "Dream big and dare to fail." — Norman Vaughan </p>
+        <div class="userDetail">
+            <p class="quote">In moments of challenge, it’s easy to feel weighed down by uncertainty, but remember that growth often hides on the other side of struggle. As the author Roy T. Bennett once said, “Believe in yourself. You are braver than you think, more talented than you know, and capable of more than you imagine.” When you choose to trust your resilience and take one step forward, even the smallest progress can lead to extraordinary change.</p>
         </div>
+
+        <hr/>
 
         <div class="userDetails">
             <p class="userText">Your Recent Records</p>
         </div>
 
 
-        <div class="progressEntries">
+        <div id="entriesContainer" class="progressEntries"> </div>
+        <template id="entry-template">
             <div class="card">
-                <img src="assets/adamsandler.jpg" alt="Project Image" class="card-img">
+                <img class="card-img" alt="Entry Image">
                 <div class="card-content">
-                    <h2 class="card-title">Birthday Weight Loss!</h2>
-                    <p class="card-date">8/26/2025 20:30</p>
+                    <h2 class="card-title">Journal Entry</h2>
+                    <p class="card-date"></p>
                     <hr/>
-                    <div class="card-emotion">
-                        <img class="card-feelings" alt="Emotion icon" src="assets/flame.png">
-                        <p>Excited</p>
-                        <img class="card-feelings" alt="Emotion icon" src="assets/greenstar.svg">
-                        <p>Happy</p>
-                    </div>
-
-                    <div class="card-emotion">
-                    </div>
-
-
-                    <p class="card-description">
-                        Lost weight and got down to 72 KG! As planned from my last birthday.
-                    </p>
+                    <div class="card-emotion"></div>
+                    <p class="card-description"></p>
                 </div>
             </div>
-
-            <div class="card">
-                <img src="assets/adamsandler.jpg" alt="Project Image" class="card-img">
-                <div class="card-content">
-                    <h2 class="card-title">Birthday Weight Loss!</h2>
-                    <p class="card-description">
-                        Lost weight and got down to 72 KG! As planned from my last birthday.
-                    </p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="assets/adamsandler.jpg" alt="Project Image" class="card-img">
-                <div class="card-content">
-                    <h2 class="card-title">Birthday Weight Loss!</h2>
-                    <p class="card-description">
-                        Lost weight and got down to 72 KG! As planned from my last birthday.
-                    </p>
-                </div>
-            </div>
-        </div>
+        </template>
 
         <hr/>
 
         <div class="progressEntries">
             <div class="card">
+                <h2 class="card-title">Upload a Picture</h2>
+                <input id="entry-image" type="file" class="card-input" accept="image/*">
                 <h2 class="card-title">New Journal Entry</h2>
-                <textarea class="card-input" placeholder="Write your thoughts..."></textarea>
-                <button class="card-button">Save Entry</button>
-            </div>
-
-            <div class="card">
-                <h2 class="card-title">Sleep Tracker</h2>
-                <input type="number" class="card-input" placeholder="Hours slept">
-                <button class="card-button">Save Sleep</button>
-            </div>
-
-            <div class="card">
+                <textarea id="entry-text" class="card-input" placeholder="Write your thoughts..."></textarea>
+                <h2 class="card-title">How Many Hours Did You Sleep?</h2>
+                <input id="entry-sleep" type="number" class="card-input" placeholder="Hours slept">
                 <h2 class="card-title">How are you feeling?</h2>
 
                 <label class="checkbox-item">
-                    <input type="checkbox" class="checkbox-input">
+                    <input type="checkbox" class="checkbox-input" id="feeling-anxious">
                     <span class="checkbox-custom"></span>
                     Anxious
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox" class="checkbox-input">
+                    <input type="checkbox" class="checkbox-input" id="feeling-happy">
                     <span class="checkbox-custom"></span>
                     Happy
                 </label>
                 <label class="checkbox-item">
-                    <input type="checkbox" class="checkbox-input">
+                    <input type="checkbox" class="checkbox-input" id="feeling-excited">
                     <span class="checkbox-custom"></span>
                     Excited
                 </label>
+                <button id="card-btn" class="card-button">Save Entry</button>
             </div>
-
         </div>
     </div>
 </body>

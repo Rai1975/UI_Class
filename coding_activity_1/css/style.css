@@ -15,13 +15,21 @@
     margin-bottom: 0;
 }
 
+.quote {
+  text-align: center;
+  font-size: 20px;
+  margin-left: 200px;
+  margin-right: 200px;
+  color: #555f55ff;
+}
+
 .userDetails {
     margin-top: 0;
     text-align: center;
 }
 
 .userText {
-    color: #555f55ff;
+    color: #000000ff;
     font-size: 25px
 }
 
@@ -100,9 +108,16 @@ body {
     display: block;
 }
 
-.card-emotion {
+.feeling-item {
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.feeling-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
 }
 
 .card-input,
