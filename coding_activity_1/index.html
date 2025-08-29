@@ -35,6 +35,20 @@
             <p class="userText">Your Recent Records</p>
         </div>
 
+        <div class="statsCard" id="stats-container">
+            <h2 class="card-title">This Week's Stats</h2>
+            <p id="avg-sleep">Average Sleep: -- hrs</p>
+            <div id="avg-feelings" class="feelings-summary">
+            </div>
+        </div>
+
+        <template id="feeling-count-template">
+            <div class="feeling-item">
+                <img class="card-feelings" alt="Feeling icon">
+                <span class="feeling-text"></span>
+            </div>
+        </template>
+
 
         <div id="entriesContainer" class="progressEntries"> </div>
         <template id="entry-template">
