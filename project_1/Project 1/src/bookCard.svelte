@@ -1,0 +1,96 @@
+<script>
+    const entries = [{
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+        journal: "Cock n balls. Yay."
+    },
+    {
+        title: "The Great Gatsby 2",
+        author: "F. Scott Fitzgerald 1.5",
+        cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+        journal: "Cock n balls. Woah?"
+    }];
+
+</script>
+
+<div class="cardFlex">
+    {#each entries as entry }
+    <div class="card">
+        <img class="cover" src={entry.cover} alt="Book Cover" />
+
+    <div class="content">
+        <h2 class="title">{entry.title}</h2>
+        <p class="author">by {entry.author}</p>
+
+        <div class="journal">
+            <h3>My Thoughts</h3>
+            <p>{entry.journal}</p>
+        </div>
+    </div>
+</div>
+{/each}
+</div>
+
+<style>
+    .cardFlex {
+        display: flex;
+    }
+
+
+  .card {
+    max-width: 320px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+    transition: all 0.3s ease;
+  }
+
+  .cover {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #222;
+    margin: 0 0 4px;
+  }
+
+  .author {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 12px;
+  }
+
+  .journal {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .journal h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: #444;
+  }
+
+  .journal p {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+  }
+</style>
