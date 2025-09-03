@@ -35,11 +35,14 @@
 <style>
     .cardFlex {
         display: flex;
+        justify-content: flex-start;
+        gap: 16px;
+
     }
 
 
   .card {
-    max-width: 320px;
+    width: 280px;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 14px;
