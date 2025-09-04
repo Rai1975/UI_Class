@@ -1,21 +1,10 @@
 <script>
-    const entries = [{
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
-        journal: "Cock n balls. Yay."
-    },
-    {
-        title: "The Great Gatsby 2",
-        author: "F. Scott Fitzgerald 1.5",
-        cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
-        journal: "Cock n balls. Woah?"
-    }];
+    export let entries;
 
 </script>
 
 <div class="cardFlex">
-    {#each entries as entry }
+    {#each entries as entry (entry.title)}
     <div class="card">
         <img class="cover" src={entry.cover} alt="Book Cover" />
 
@@ -37,7 +26,6 @@
         display: flex;
         justify-content: flex-start;
         gap: 16px;
-
     }
 
 

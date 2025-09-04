@@ -1,12 +1,22 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   export let open = false;
   export let onClose = () => {};
+
+  const dispatch = createEventDispatcher();
 
   let element = {
     title: "",
     author: "",
     cover: "",
     journal: ""
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch("addEntry", { ...element }); // send new entry up
+    onClose(); // close modal after submit
+    element = { title: "", author: "", cover: "", journal: "" }; // reset form
   }
 
 </script>
@@ -19,22 +29,22 @@
         <button class="close" on:click={onClose}>&times;</button>
       </header>
 
-      <form class="form">
+      <form class="form" on:submit={handleSubmit}>
         <label>
           Title
-          <input type="text" placeholder="Book title" />
+          <input type="text" bind:value={element.title} placeholder="Book title" />
         </label>
         <label>
           Author
-          <input type="text" placeholder="Book author" />
+          <input type="text" bind:value={element.author} placeholder="Book author" />
         </label>
         <label>
           Cover URL
-          <input type="url" placeholder="https://..." />
+          <input type="url" bind:value={element.cover} placeholder="https://..." />
         </label>
         <label>
           Journal Entry
-          <textarea placeholder="Write your thoughts..."></textarea>
+          <textarea bind:value={element.journal} placeholder="Write your thoughts..."></textarea>
         </label>
 
         <button type="submit" class="submit">Add Book</button>

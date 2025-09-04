@@ -14,6 +14,24 @@
   function closeModal() {
     modalOpen = false;
   }
+
+  function addEntry(e) {
+    entries = [...entries, e.detail];
+  }
+
+  let entries = [{
+    title: "1984",
+    author: "George Orwell",
+    cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+    journal: "Crazy book. I think reading this book has made me see the world differently now. Big Brother is always watching!"
+  },
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    cover: "https://covers.openlibrary.org/b/olid/OL35657482M-L.jpg",
+    journal: "Great read, not as crazy as 1984 though."
+  }];
+
 </script>
 
 <main>
@@ -24,6 +42,6 @@
 
   <button class="newCardButton" on:click={openModal}>➕ Add New Card</button>
 
-  <Modal open={modalOpen} onClose={closeModal} />
-  <BookCard />
+  <Modal open={modalOpen} onClose={closeModal} on:addEntry={addEntry}/>
+  <BookCard entries={entries} />
 </main>
