@@ -1,24 +1,25 @@
 <script>
     export let entries;
-
 </script>
 
 <div class="cardFlex">
-    {#each entries as entry (entry.title)}
+{#each entries as entry (entry.title)}
     <div class="card">
         <img class="cover" src={entry.cover} alt="Book Cover" />
-
-    <div class="content">
-        <h2 class="title">{entry.title}</h2>
-        <p class="author">by {entry.author}</p>
-
-        <div class="journal">
-            <h3>My Thoughts</h3>
-            <p>{entry.journal}</p>
+        <div class="content">
+            <h2 class="title">{entry.title}</h2>
+            <p class="author">by {entry.author}</p>
+            <div class="journal">
+                <h3>My Thoughts</h3>
+                                {#each entry.journal as journalEntry}
+                  <p>
+                        **Page {journalEntry.page}** ({journalEntry.date}): {journalEntry.feeling}
+                    </p>
+                {/each}
+            </div>
         </div>
     </div>
-</div>
-{/each}
+    {/each}
 </div>
 
 <style>
