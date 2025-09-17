@@ -1,21 +1,29 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
     export let entries;
+    const dispatch = createEventDispatcher();
+
+    function openJournalModal(entry) {
+        dispatch('openJournal', { entry });
+    }
 </script>
 
 <div class="cardFlex">
-{#each entries as entry (entry.title)}
-    <div class="card">
+    {#each entries as entry (entry.title)}
+    <div class="card" on:click={() => openJournalModal(entry)}>
         <img class="cover" src={entry.cover} alt="Book Cover" />
         <div class="content">
             <h2 class="title">{entry.title}</h2>
             <p class="author">by {entry.author}</p>
             <div class="journal">
-                <h3>My Thoughts</h3>
-                                {#each entry.journal as journalEntry}
-                  <p>
-                        **Page {journalEntry.page}** ({journalEntry.date}): {journalEntry.feeling}
+                <h3>My Latest Thought</h3>
+                {#if entry.journal && entry.journal.length > 0}
+                    <p>
+                        <strong>Page {entry.journal[entry.journal.length - 1].page}</strong>: {entry.journal[entry.journal.length - 1].feeling}
                     </p>
-                {/each}
+                {:else}
+                    <p>No entries yet.</p>
+                {/if}
             </div>
         </div>
     </div>
@@ -41,6 +49,11 @@
     transition: all 0.3s ease;
   }
 
+  .card:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+  }
   .cover {
     width: 100%;
     height: 240px;

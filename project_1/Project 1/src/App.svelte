@@ -1,10 +1,13 @@
 <script>
   import BookCard from "./bookCard.svelte";
+    import JournalModal from "./journalModal.svelte";
   import Modal from "./newCardModal.svelte";
-  import ReadingTracker from "./readingTracker.svelte";
   const user = "Benjamin"
-
   const date = new Date();
+
+  let newCardModalOpen = false;
+  let journalModalOpen = false;
+  let selectedBook = {};
 
   let modalOpen = false;
 
@@ -16,25 +19,51 @@
     modalOpen = false;
   }
 
+  function openJournalModal(event) {
+    selectedBook = event.detail.entry;
+    journalModalOpen = true;
+  }
+
+  function openNewCardModal() {
+    newCardModalOpen = true;
+  }
+
+  function closeNewCardModal() {
+    newCardModalOpen = false;
+  }
+
+
+  function closeJournalModal() {
+      journalModalOpen = false;
+  }
+
   function addEntry(e) {
     entries = [...entries, e.detail];
   }
 
+  // This function will now be the centralized handler for adding new entries
   function addReadingEntry(event) {
-    const { title, chapter, page, feeling, date } = event.detail;
+      const { title, page, feeling, date } = event.detail;
 
-    // Find the book with the matching title
-    const bookToUpdate = entries.find(book => book.title === title);
+      const bookToUpdate = entries.find(book => book.title === title);
 
-    if (bookToUpdate) {
-        // Add the new journal entry to the book's journal array
-        bookToUpdate.journal = [...bookToUpdate.journal, { page, feeling, date }];
-        // Sort the journal entries by page number in chronological order
-        bookToUpdate.journal.sort((a, b) => a.page - b.page);
-        // Reassign entries to trigger reactivity
-        entries = entries;
-    }
-}
+      if (bookToUpdate) {
+          bookToUpdate.journal = [...bookToUpdate.journal, { page: parseInt(page), feeling, date }];
+          bookToUpdate.journal.sort((a, b) => a.page - b.page);
+          entries = entries; // Trigger reactivity
+      }
+  }
+
+  // This function handles updates from the journal modal
+  function handleJournalUpdate(event) {
+      const { title, journal } = event.detail;
+      const bookToUpdate = entries.find(book => book.title === title);
+      if (bookToUpdate) {
+          bookToUpdate.journal = journal;
+          entries = entries;
+      }
+  }
+
   let entries = [
         {
             title: "1984",
@@ -56,17 +85,26 @@
 </script>
 
 <main>
-  <h1 class="topTitle"> HELLO WORLD </h1>
+  <h1 class="topTitle">HELLO WORLD</h1>
+    <p class="userSum">Welcome back, {user}</p>
+    <p class="userSum">Today is {date.toLocaleString()}</p>
 
-  <p class="userSum">Welcome back, {user}</p>
-  <p class="userSum">Today is {date.toLocaleString()}</p>
-  <ReadingTracker bookTitles={entries.map(entry => entry.title)} on:addReadingEntry={addReadingEntry} />
+    <button class="newCardButton" on:click={openNewCardModal}>➕ Add New Card</button>
 
-  <button class="newCardButton" on:click={openModal}>➕ Add New Book</button>
+    <Modal open={newCardModalOpen} onClose={closeNewCardModal} on:addEntry={(e) => {
+        entries = [...entries, { ...e.detail, journal: [] }];
+    }}/>
 
-  <Modal open={modalOpen} onClose={closeModal} on:addEntry={addEntry}/>
-  <div class="book-card-container">
+    <div class="book-card-container">
         <h2>My Books</h2>
-        <BookCard entries={entries} />
-  </div>
+        <BookCard entries={entries} on:openJournal={openJournalModal} />
+    </div>
+
+    <JournalModal
+        open={journalModalOpen}
+        book={selectedBook}
+        on:close={closeJournalModal}
+        on:addReadingEntry={addReadingEntry}
+        on:updateJournal={handleJournalUpdate}
+    />
 </main>
