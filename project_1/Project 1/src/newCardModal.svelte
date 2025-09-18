@@ -9,14 +9,13 @@
     title: "",
     author: "",
     cover: "",
-    journal: ""
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch("addEntry", { ...element }); // send new entry up
     onClose(); // close modal after submit
-    element = { title: "", author: "", cover: "", journal: "" }; // reset form
+    element = { title: "", author: "", cover: ""}; // reset form
   }
 
 </script>
@@ -41,10 +40,6 @@
         <label>
           Cover URL
           <input type="url" bind:value={element.cover} placeholder="https://..." />
-        </label>
-        <label>
-          Journal Entry
-          <textarea bind:value={element.journal} placeholder="Write your thoughts..."></textarea>
         </label>
 
         <button type="submit" class="submit">Add Book</button>
