@@ -123,7 +123,7 @@
                                             <div class="emotions-container">
                                                 {#each entry.emotions as emotionValue}
                                                     {#if getEmotionData(emotionValue)}
-                                                        <span class="emotion-badge" style="background-color: {getEmotionData(emotionValue).color}20; color: {getEmotionData(emotionValue).color}">
+                                                        <span class="emotion-badge" style="background-color: {getEmotionData(emotionValue).color}; color: white">
                                                             {getEmotionData(emotionValue).label}
                                                         </span>
                                                     {/if}

@@ -11,13 +11,24 @@
     cover: "",
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch("addEntry", { ...element }); // send new entry up
-    onClose(); // close modal after submit
-    element = { title: "", author: "", cover: ""}; // reset form
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      // Create a local object URL for preview
+      const url = URL.createObjectURL(file);
+      element.cover = url;
+    }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    // send new entry up
+    dispatch("addEntry", { ...element });
+    // close modal
+    onClose();
+    // reset form
+    element = { title: "", author: "", cover: "" };
+  }
 </script>
 
 {#if open}
@@ -38,11 +49,19 @@
           <input type="text" bind:value={element.author} placeholder="Book author" />
         </label>
         <label>
-          Cover URL
-          <input type="url" bind:value={element.cover} placeholder="https://..." />
+          Cover Image
+          <input type="file" accept="image/*" on:change={handleFileChange} />
         </label>
 
-        <button type="submit" class="submit">Add Book</button>
+        {#if element.cover}
+          <div class="preview">
+            <img src={element.cover} alt="Cover Preview" />
+          </div>
+        {/if}
+
+        <button type="submit" class="submit">
+          Add Book
+        </button>
       </form>
     </div>
   </div>
@@ -99,8 +118,7 @@
     color: #444;
   }
 
-  .form input,
-  .form textarea {
+  .form input {
     width: 100%;
     padding: 8px 10px;
     margin-top: 4px;
@@ -109,9 +127,17 @@
     font-size: 0.9rem;
   }
 
-  .form textarea {
-    resize: vertical;
-    min-height: 80px;
+  .preview {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .preview img {
+    max-width: 120px;
+    max-height: 160px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    object-fit: cover;
   }
 
   .submit {
