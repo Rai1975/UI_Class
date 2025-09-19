@@ -79,7 +79,7 @@
   }
 
   .modal {
-    background: #fff;
+    background: #313a40;
     border: 1px solid #ddd;
     border-radius: 14px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
@@ -100,7 +100,7 @@
   header h2 {
     font-size: 1.2rem;
     margin: 0;
-    color: #333;
+    color: white;
   }
 
   .close {
@@ -108,14 +108,14 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #666;
+    color: white;
   }
 
   .form label {
     display: block;
     font-size: 0.9rem;
     margin-bottom: 10px;
-    color: #444;
+    color: white;
   }
 
   .form input {
@@ -144,8 +144,8 @@
     margin-top: 12px;
     width: 100%;
     padding: 10px;
-    background: #007acc;
-    color: white;
+    background: #ef7f3e;
+    color: #f4f3f1;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -153,7 +153,7 @@
   }
 
   .submit:hover {
-    background: #005fa3;
+    background: #773f1f;
   }
 
   @keyframes fadeIn {

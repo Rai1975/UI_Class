@@ -10,6 +10,7 @@
   let selectedBook = {};
   let modalOpen = false;
   let settingsModalOpen = false;
+  let showSuccessMessage = false;
 
   function openModal() {
     modalOpen = true;
@@ -175,15 +176,23 @@
     };
   }
 
-  // Goals management
+  // Goals management - now with enabled/disabled toggles
   let goals = {
     weeklyDays: 5,
-    weeklyPages: 100
+    weeklyPages: 100,
+    trackDays: true,
+    trackPages: true
   };
 
   function saveGoals(event) {
     goals = { ...event.detail };
     updateWeeklyProgress();
+
+    // Show success message
+    showSuccessMessage = true;
+    setTimeout(() => {
+      showSuccessMessage = false;
+    }, 3000); // Hide after 3 seconds
   }
 
   // Reactive variables
@@ -228,36 +237,40 @@
     // Temporary variables for the settings modal
   let tempWeeklyDays = goals.weeklyDays;
   let tempWeeklyPages = goals.weeklyPages;
+  let tempTrackDays = goals.trackDays;
+  let tempTrackPages = goals.trackPages;
 
   // Update temp values when goals change
   $: {
     tempWeeklyDays = goals.weeklyDays;
     tempWeeklyPages = goals.weeklyPages;
+    tempTrackDays = goals.trackDays;
+    tempTrackPages = goals.trackPages;
   }
 </script>
 
 <main>
   <div class="header-container">
     <div class="header-content">
-      <button class="settings-button" on:click={openSettingsModal} title="Settings">
-        ⚙️
-      </button>
+      <h1 class="userSum">Welcome back, {user}</h1>
+      <div class="header-right">
+        <p class="date-text">
+          Today is {date.toLocaleDateString("en-US", {
+            weekday: "long",
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit"
+          }).replace(/\//g, "-")}
+        </p>
+        <button class="settings-button" on:click={openSettingsModal} title="Settings">⚙️</button>
+      </div>
     </div>
-    <h1 class="userSum">Welcome back, {user}</h1>
-    <p class="userSum">
-      Today is {date.toLocaleDateString("en-US", {
-        weekday: "long",
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit"
-      }).replace(/\//g, "-")}
-    </p>
   </div>
+
 
   <!-- Enhanced Streak Display with Goals -->
   <div class="streak-container">
     <div class="streak-display">
-      <span class="streak-icon">🔥</span>
       <div class="streak-info">
         <span class="streak-number">{currentStreak}</span>
         <span class="streak-label">day{currentStreak !== 1 ? 's' : ''} streak</span>
@@ -268,47 +281,58 @@
     {:else}
       <p class="streak-message">Start your reading journey today! ✨</p>
     {/if}
-
-    <!-- Weekly Goals Progress -->
-    <div class="goals-progress">
-      <h3>This Week's Progress</h3>
-      <div class="progress-grid">
-        <div class="progress-item">
-          <div class="progress-header">
-            <span class="progress-icon">📅</span>
-            <span class="progress-title">Reading Days</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: {Math.min((weeklyProgress.daysRead / goals.weeklyDays) * 100, 100)}%"></div>
-          </div>
-          <div class="progress-text">
-            {weeklyProgress.daysRead}/{goals.weeklyDays} days
-            {#if weeklyProgress.daysRead >= goals.weeklyDays}
-              <span class="goal-achieved">🎉</span>
-            {/if}
-          </div>
-        </div>
-
-        <div class="progress-item">
-          <div class="progress-header">
-            <span class="progress-icon">📖</span>
-            <span class="progress-title">Pages Read</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: {Math.min((weeklyProgress.pagesRead / goals.weeklyPages) * 100, 100)}%"></div>
-          </div>
-          <div class="progress-text">
-            {weeklyProgress.pagesRead}/{goals.weeklyPages} pages
-            {#if weeklyProgress.pagesRead >= goals.weeklyPages}
-              <span class="goal-achieved">🎉</span>
-            {/if}
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <button class="newCardButton" on:click={openNewCardModal}>➕ Add New Book</button>
+  {#if goals.trackDays || goals.trackPages}
+    <div class="goals-progress">
+      <h3>This Week's Progress</h3>
+      <div class="progress-grid" class:single-goal={!goals.trackDays || !goals.trackPages}>
+        {#if goals.trackDays}
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-icon">📅</span>
+              <span class="progress-title">Reading Days</span>
+            </div>
+           <div class="progress-bar">
+              <div class="progress-fill" style="width: {Math.min((weeklyProgress.daysRead / goals.weeklyDays) * 100, 100)}%"></div>
+            </div>
+            <div class="progress-text">
+              {weeklyProgress.daysRead}/{goals.weeklyDays} days
+              {#if weeklyProgress.daysRead >= goals.weeklyDays}
+                <span class="goal-achieved">🎉</span>
+              {/if}
+            </div>
+          </div>
+        {/if}
+
+        {#if goals.trackPages}
+          <div class="progress-item">
+            <div class="progress-header">
+              <span class="progress-icon">📖</span>
+              <span class="progress-title">Pages Read</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: {Math.min((weeklyProgress.pagesRead / goals.weeklyPages) * 100, 100)}%"></div>
+            </div>
+            <div class="progress-text">
+              {weeklyProgress.pagesRead}/{goals.weeklyPages} pages
+              {#if weeklyProgress.pagesRead >= goals.weeklyPages}
+                <span class="goal-achieved">🎉</span>
+              {/if}
+            </div>
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+  <!-- Success Message -->
+  {#if showSuccessMessage}
+    <div class="success-message">
+      <span class="success-icon">✅</span>
+      <span class="success-text">Goals updated successfully!</span>
+    </div>
+  {/if}
 
   <!-- Settings Modal -->
   {#if settingsModalOpen}
@@ -319,37 +343,76 @@
           <button class="close-button" on:click={closeSettingsModal}>&times;</button>
         </div>
         <form on:submit|preventDefault={() => {
-          saveGoals({ detail: { weeklyDays: tempWeeklyDays, weeklyPages: tempWeeklyPages } });
+          saveGoals({
+            detail: {
+              weeklyDays: tempWeeklyDays,
+              weeklyPages: tempWeeklyPages,
+              trackDays: tempTrackDays,
+              trackPages: tempTrackPages
+            }
+          });
           closeSettingsModal();
         }}>
           <div class="goal-setting">
-            <label>
-              <span class="goal-icon">📅</span>
-              <span class="goal-label">Days per week goal:</span>
-              <input
-                type="number"
-                min="1"
-                max="7"
-                bind:value={tempWeeklyDays}
-                class="goal-input"
-              />
-            </label>
-            <p class="goal-description">How many days per week do you want to read?</p>
+            <div class="goal-header">
+              <label class="goal-toggle">
+                <input
+                  type="checkbox"
+                  bind:checked={tempTrackDays}
+                  class="goal-checkbox"
+                />
+                <span class="goal-icon">📅</span>
+                <span class="goal-label">Track reading days</span>
+              </label>
+            </div>
+            {#if tempTrackDays}
+              <div class="goal-input-section">
+                <label>
+                  <span class="goal-sublabel">Days per week goal:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="7"
+                    bind:value={tempWeeklyDays}
+                    class="goal-input"
+                  />
+                </label>
+                <p class="goal-description">How many days per week do you want to read?</p>
+              </div>
+            {:else}
+              <p class="goal-disabled">Reading days tracking is disabled</p>
+            {/if}
           </div>
 
           <div class="goal-setting">
-            <label>
-              <span class="goal-icon">📖</span>
-              <span class="goal-label">Pages per week goal:</span>
-              <input
-                type="number"
-                min="1"
-                max="1000"
-                bind:value={tempWeeklyPages}
-                class="goal-input"
-              />
-            </label>
-            <p class="goal-description">How many pages do you want to read per week?</p>
+            <div class="goal-header">
+              <label class="goal-toggle">
+                <input
+                  type="checkbox"
+                  bind:checked={tempTrackPages}
+                  class="goal-checkbox"
+                />
+                <span class="goal-icon">📖</span>
+                <span class="goal-label">Track pages read</span>
+              </label>
+            </div>
+            {#if tempTrackPages}
+              <div class="goal-input-section">
+                <label>
+                  <span class="goal-sublabel">Pages per week goal:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="1000"
+                    bind:value={tempWeeklyPages}
+                    class="goal-input"
+                  />
+                </label>
+                <p class="goal-description">How many pages do you want to read per week?</p>
+              </div>
+            {:else}
+              <p class="goal-disabled">Pages tracking is disabled</p>
+            {/if}
           </div>
 
           <div class="modal-actions">
@@ -369,7 +432,11 @@
 
   <div class="book-card-container">
       <h2 class='topTitle'>My Books</h2>
-      <BookCard entries={entries} on:openJournal={openJournalModal} />
+      <BookCard entries={entries} on:openJournal={openJournalModal}/>
+
+      <div class="add-card" on:click={openNewCardModal}>
+        <div class="add-icon">+</div>
+      </div>
   </div>
 
   <JournalModal
@@ -381,288 +448,3 @@
       on:deleteJournalEntry={handleDeleteEntry}
   />
 </main>
-
-<style>
-  .header-container {
-    position: relative;
-  }
-
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .settings-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    opacity: 0.7;
-  }
-
-  .settings-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    opacity: 1;
-    transform: rotate(90deg);
-  }
-
-  .streak-container {
-    margin: 20px 0;
-    padding: 20px;
-    background: #a27162;
-    border-radius: 12px;
-    color: white;
-    text-align: center;
-  }
-
-  .streak-display {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .streak-icon {
-    font-size: 2rem;
-    animation: flicker 2s ease-in-out infinite alternate;
-  }
-
-  .streak-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .streak-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    line-height: 1;
-  }
-
-  .streak-label {
-    font-size: 0.9rem;
-    opacity: 0.9;
-  }
-
-  .streak-message {
-    margin: 0 0 20px 0;
-    font-size: 0.9rem;
-    opacity: 0.9;
-  }
-
-  .goals-progress {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
-  }
-
-  .goals-progress h3 {
-    margin: 0 0 15px 0;
-    font-size: 1.1rem;
-    opacity: 0.9;
-  }
-
-  .progress-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
-
-  .progress-item {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 12px;
-  }
-
-  .progress-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .progress-icon {
-    font-size: 1rem;
-  }
-
-  .progress-title {
-    font-size: 0.85rem;
-    font-weight: 500;
-  }
-
-  .progress-bar {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    height: 8px;
-    margin-bottom: 8px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    background: #ef7f3e;
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.3s ease;
-  }
-
-  .progress-text {
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .goal-achieved {
-    animation: bounce 0.6s ease;
-  }
-
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .settings-modal {
-    background: #313a40;
-    border-radius: 12px;
-    padding: 25px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-  }
-
-  .modal-header h2 {
-    margin: 0;
-    color: #f4f3f1;
-  }
-
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
-    padding: 5px;
-  }
-
-  .close-button:hover {
-    color: #333;
-  }
-
-  .goal-setting {
-    margin-bottom: 25px;
-  }
-
-  .goal-setting label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-    color: #f4f3f1;
-    font-weight: 500;
-  }
-
-  .goal-icon {
-    font-size: 1.2rem;
-  }
-
-  .goal-label {
-    flex: 1;
-  }
-
-  .goal-input {
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    width: 80px;
-    text-align: center;
-  }
-
-  .goal-input:focus {
-    outline: none;
-    border-color: #667eea;
-  }
-
-  .goal-description {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #f4f3f1;
-    font-style: italic;
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-  }
-
-  .cancel-button, .save-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-
-  .cancel-button {
-    background: #f5f5f5;
-    color: #666;
-  }
-
-  .cancel-button:hover {
-    background: #e0e0e0;
-  }
-
-  .save-button {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-  }
-
-  .save-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  }
-
-  @keyframes flicker {
-    0% { transform: rotate(-5deg) scale(1); }
-    100% { transform: rotate(5deg) scale(1.1); }
-  }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-
-  @media (max-width: 600px) {
-    .progress-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
