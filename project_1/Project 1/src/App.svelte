@@ -213,8 +213,8 @@
             author: "George Orwell",
             cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
             journal: [
-                { page: 45, feeling: "Crazy book. I think reading this book has made me see the world differently now. Big Brother is always watching!", date: "9/16/2025" , emotions: ['excited', 'curious']},
-                { page: 46, feeling: "Oh nvm, it's not that crazy", date: "9/17/2025", emotions: ['disappointed']}
+                { page: 45, feeling: "Crazy book. I think reading this book has made me see the world differently now. Big Brother is always watching!", date: "9/17/2025" , emotions: ['excited', 'curious']},
+                { page: 46, feeling: "Oh nvm, it's not that crazy", date: "9/18/2025", emotions: ['disappointed']}
             ]
         },
         {
