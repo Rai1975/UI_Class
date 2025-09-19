@@ -40,7 +40,7 @@
 
   .card {
     width: 280px;
-    background: #fff;
+    background: #a27162;
     border: 1px solid #ddd;
     border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
@@ -68,18 +68,18 @@
   .title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #222;
+    color: white;
     margin: 0 0 4px;
   }
 
   .author {
     font-size: 0.9rem;
-    color: #555;
+    color: #dbdbdb;
     margin: 0 0 12px;
   }
 
   .journal {
-    background: #f9f9f9;
+    background: #a27162;
     border: 1px solid #eee;
     border-radius: 10px;
     padding: 12px;
@@ -89,12 +89,12 @@
     font-size: 0.95rem;
     font-weight: 600;
     margin: 0 0 6px;
-    color: #444;
+    color: white;
   }
 
   .journal p {
     font-size: 0.9rem;
-    color: #333;
+    color: white;
     margin: 0;
     line-height: 1.4;
   }

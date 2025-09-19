@@ -148,7 +148,7 @@
             
             <hr />
             
-            <h3>Add New Entry</h3>
+            <h2>Add New Entry</h2>
             {#if showConfirmation}
                 <p class="confirmation-message">Entry submitted! 🎉</p>
             {/if}
@@ -194,7 +194,7 @@
     }
 
     .modal-content {
-        background-color: white;
+        background-color: #313a40;
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -215,7 +215,7 @@
 
     .modal-header h2 {
         margin: 0;
-        color: #333;
+        color: white;
     }
 
     .modal-header button {
@@ -259,7 +259,7 @@
     }
 
     .content-box {
-        background: #f9f9f9;
+        background: #8497a3;
         border-radius: 8px;
         padding: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -280,7 +280,13 @@
 
     .content-box h4 {
         margin: 0 0 10px;
-        color: #333;
+        color: white;
+        font-weight: 600;
+    }
+
+    .modal-content h2 {
+        margin: 0 0 10px;
+        color: white;
         font-weight: 600;
     }
 
@@ -305,16 +311,16 @@
 
     .content-box p {
         margin: 8px 0;
-        color: #555;
+        color: white;
         line-height: 1.4;
     }
 
     .content-box small {
         display: block;
         margin-top: 10px;
-        color: #888;
+        color: hsl(0, 0%, 100%);
         font-size: 0.85rem;
-    }
+   }
 
     .entry-actions {
         margin-top: 12px;
@@ -363,7 +369,7 @@
     .add-entry-form label {
         display: block;
         margin-bottom: 15px;
-        color: #333;
+        color: #ffffff;
         font-weight: 500;
     }
 

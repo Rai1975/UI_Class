@@ -1,27 +1,28 @@
 html {
-  background-color: #000000ff;
+  background-color: #313a40;
 }
 
 .topTitle {
-  color: #ffffffff;
+  color: #f4f3f1;
   text-align: center;
 }
 
 .userSum {
-  color: #ffffffff;
+  color: #f4f3f1;
   text-align: center;
-  font-size: 28px;
+  font-size: 40px;
   margin-top: 0;
 }
 
 p {
-  color: #ffffffff;
+  color: #f4f3f1;
 }
 
 .newCardButton {
   display: inline-block;
   padding: 10px 18px;
-  color: #000000ff;
+  color: #ffffffff;
+  background-color: #a27162;
   font-size: 1rem;
   font-weight: 500;
   border-radius: 12px;
