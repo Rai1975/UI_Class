@@ -1,5 +1,5 @@
 <script>
-    import BookCard from "./BookCard.svelte";
+    import BookCard from "./bookCard.svelte";
     import JournalModal from "./JournalModal.svelte";
     import NewCardModal from "./NewCardModal.svelte";
     import SettingsModal from "./SettingsModal.svelte";
