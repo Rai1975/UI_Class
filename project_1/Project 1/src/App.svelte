@@ -1,7 +1,7 @@
 <script>
     import BookCard from "./bookCard.svelte";
-    import JournalModal from "./JournalModal.svelte";
-    import NewCardModal from "./NewCardModal.svelte";
+    import JournalModal from "./journalModal.svelte";
+    import NewCardModal from "./newCardModal.svelte";
     import SettingsModal from "./SettingsModal.svelte";
 
     const user = "Benjamin";
