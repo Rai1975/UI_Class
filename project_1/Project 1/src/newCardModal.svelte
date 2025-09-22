@@ -15,7 +15,6 @@
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      // Create a local object URL for preview
       const url = URL.createObjectURL(file);
       element.cover = url;
     }
@@ -23,11 +22,8 @@
 
   function handleSubmit(e) {
     e.preventDefault();
-    // send new entry up
     dispatch("addEntry", { ...element });
-    // close modal
     onClose();
-    // reset form
     element = { title: "", author: "", cover: "" };
   }
 </script>

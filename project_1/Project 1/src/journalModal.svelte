@@ -15,7 +15,6 @@
 
     const dispatch = createEventDispatcher();
 
-    // Predefined emotions for reading experiences
     const emotions = [
         { value: 'excited', label: '😄 Excited', color: '#FFD700' },
         { value: 'curious', label: '🤔 Curious', color: '#4CAF50' },
@@ -66,12 +65,11 @@
         });
 
         editingIndex = -1;
+        }
     }
-}
 
 
     function handleAddEntry() {
-        // Create emotions array from selected emotion
         const emotionsArray = selectedEmotion ? [selectedEmotion] : [];
 
         dispatch('addReadingEntry', {
@@ -100,7 +98,6 @@
         });
     }
 
-    // Function to get emotion data from emotion values
     function getEmotionData(emotionValue) {
         return emotions.find(emotion => emotion.value === emotionValue);
     }

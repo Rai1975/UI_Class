@@ -37,11 +37,9 @@
         }
     ];
 
-    // Reactive variables
     let currentStreak = 0;
     let weeklyProgress = { daysRead: 0, pagesRead: 0 };
 
-    // Function to calculate current streak
     function calculateStreak(allDates) {
         if (allDates.length === 0) return 0;
         const sortedDates = allDates.sort((a, b) => new Date(b) - new Date(a));
@@ -69,7 +67,6 @@
         return streak;
     }
 
-    // Function to get all journal entry dates
     function getAllJournalDates() {
         const allDates = [];
         entries.forEach(book => {
@@ -83,7 +80,6 @@
         return allDates;
     }
 
-    // Function to get start of current week (Monday)
     function getStartOfWeek(date) {
         const d = new Date(date);
         const day = d.getDay();
@@ -91,18 +87,20 @@
         return new Date(d.setDate(diff));
     }
 
-    // Function to calculate weekly progress
     function calculateWeeklyProgress() {
-        const startOfWeek = getStartOfWeek(new Date());
-        const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setHours(0, 0, 0, 0);
+        sevenDaysAgo.setDate(today.getDate() - 6);
+
         const thisWeekDates = new Set();
         let totalPagesThisWeek = 0;
 
         entries.forEach(book => {
             book.journal.forEach(entry => {
                 const entryDate = new Date(entry.date);
-                if (entryDate >= startOfWeek && entryDate <= endOfWeek) {
+                if (entryDate >= sevenDaysAgo && entryDate <= today) {
                     thisWeekDates.add(entry.date);
                     const prevEntry = book.journal.find(e => e.page < entry.page);
                     const pagesRead = prevEntry ? entry.page - prevEntry.page : entry.page;
@@ -110,18 +108,11 @@
                 }
             });
         });
+
         return {
             daysRead: thisWeekDates.size,
             pagesRead: totalPagesThisWeek
         };
-    }
-
-    function openNewCardModal() {
-        newCardModalOpen = true;
-    }
-
-    function closeNewCardModal() {
-        newCardModalOpen = false;
     }
 
     function openJournalModal(event) {
@@ -193,32 +184,28 @@
       }
   }
 
-
-    function handleSaveGoals(event) {
-        goals = { ...event.detail };
-        updateWeeklyProgress();
-        showSuccessMessage = true;
-        setTimeout(() => {
-            showSuccessMessage = false;
-        }, 3000);
+  function handleSaveGoals(event) {
+      goals = { ...event.detail };
+      updateWeeklyProgress();
+      showSuccessMessage = true;
+      setTimeout(() => {
+          showSuccessMessage = false;
+      }, 3000);
     }
 
-    // Function to update streak
-    function updateStreak() {
-        const allDates = getAllJournalDates();
-        currentStreak = calculateStreak(allDates);
-    }
+  function updateStreak() {
+      const allDates = getAllJournalDates();
+      currentStreak = calculateStreak(allDates);
+  }
 
-    // Function to update weekly progress
-    function updateWeeklyProgress() {
-        weeklyProgress = calculateWeeklyProgress();
-    }
+  function updateWeeklyProgress() {
+      weeklyProgress = calculateWeeklyProgress();
+  }
 
-    // Initialize on component load
-    $: if (entries) {
-        updateStreak();
-        updateWeeklyProgress();
-    }
+  $: if (entries) {
+      updateStreak();
+      updateWeeklyProgress();
+  }
 </script>
 
 <main>
@@ -308,12 +295,6 @@
         on:saveGoals={handleSaveGoals}
         on:close={closeSettingsModal}
     />
-
-    <!-- <NewCardModal open={newCardModalOpen} onClose={closeNewCardModal} on:addEntry={(e) => {
-        entries = [...entries, { ...e.detail, journal: [] }];
-        updateStreak();
-        updateWeeklyProgress();
-    }}/> -->
 
     <div class="book-card-container">
         <h2 class='topTitle'>My Books</h2>

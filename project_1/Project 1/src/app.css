@@ -65,7 +65,7 @@ p {
 }
 
 .add-card {
-  width: 280px; /* match your BookCard width */
+  width: 280px;
   height:423px;
   background: #f4f3f1;
   border-radius: 12px;
