@@ -46,20 +46,29 @@
     }
 
     function saveEdit() {
-        if (editingIndex !== -1) {
-            book.journal[editingIndex].feeling = editedFeeling;
-            book.journal[editingIndex].page = editedPage;
-            
-            // Re-sort the journal entries after editing a page number
-            book.journal.sort((a, b) => a.page - b.page);
+    if (editingIndex !== -1) {
+        const updatedJournal = book.journal.map((entry, i) => {
+            if (i === editingIndex) {
+                return {
+                    ...entry,
+                    feeling: editedFeeling,
+                    page: editedPage
+                };
+            }
+            return entry;
+        }).sort((a, b) => a.page - b.page);
 
-            dispatch('updateJournal', {
-                title: book.title,
-                journal: book.journal
-            });
-            editingIndex = -1;
-        }
+        book = { ...book, journal: updatedJournal };
+
+        dispatch('updateJournal', {
+            title: book.title,
+            journal: updatedJournal
+        });
+
+        editingIndex = -1;
     }
+}
+
 
     function handleAddEntry() {
         // Create emotions array from selected emotion

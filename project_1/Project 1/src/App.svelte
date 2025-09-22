@@ -25,8 +25,8 @@
             author: "George Orwell",
             cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
             journal: [
-                { page: 45, feeling: "Crazy book. I think reading this book has made me see the world differently now. Big Brother is always watching!", date: "9/17/2025" , emotions: ['excited', 'curious']},
-                { page: 46, feeling: "Oh nvm, it's not that crazy", date: "9/18/2025", emotions: ['disappointed']}
+                { page: 45, feeling: "Crazy book. I think reading this book has made me see the world differently now. Big Brother is always watching!", date: "9/20/2025" , emotions: ['excited', 'curious']},
+                { page: 46, feeling: "Oh nvm, it's not that crazy", date: "9/21/2025", emotions: ['disappointed']}
             ]
         },
         {
@@ -141,39 +141,58 @@
         settingsModalOpen = false;
     }
 
-    function addReadingEntry(event) {
-        const { title, page, feeling, emotions, date } = event.detail;
-        const bookToUpdate = entries.find(book => book.title === title);
-        if (bookToUpdate) {
-            bookToUpdate.journal = [...bookToUpdate.journal, { page: parseInt(page), feeling, emotions: emotions || [], date}];
-            bookToUpdate.journal.sort((a, b) => a.page - b.page);
-            entries = entries; // Trigger reactivity
-            updateStreak();
-            updateWeeklyProgress();
-        }
-    }
-
     function handleJournalUpdate(event) {
-        const { title, journal } = event.detail;
-        const bookToUpdate = entries.find(book => book.title === title);
-        if (bookToUpdate) {
-            bookToUpdate.journal = journal;
-            entries = entries;
-            updateStreak();
-            updateWeeklyProgress();
-        }
-    }
+      const { title, journal } = event.detail;
+      const bookToUpdate = entries.find(book => book.title === title);
+      if (bookToUpdate) {
+          bookToUpdate.journal = journal;
+          entries = [...entries]; // trigger reactivity
 
-    function handleDeleteEntry(event) {
-        const { title, index } = event.detail;
-        const bookToUpdate = entries.find(book => book.title === title);
-        if (bookToUpdate) {
-            bookToUpdate.journal.splice(index, 1);
-            entries = entries;
-            updateStreak();
-            updateWeeklyProgress();
-        }
-    }
+          // 🔑 also update selectedBook so the modal sees changes live
+          if (selectedBook.title === title) {
+              selectedBook = { ...bookToUpdate };
+          }
+
+          updateStreak();
+          updateWeeklyProgress();
+      }
+  }
+
+    function addReadingEntry(event) {
+      const { title, page, feeling, emotions, date } = event.detail;
+      const bookToUpdate = entries.find(book => book.title === title);
+      if (bookToUpdate) {
+          bookToUpdate.journal = [
+              ...bookToUpdate.journal,
+              { page: parseInt(page), feeling, emotions: emotions || [], date }
+          ].sort((a, b) => a.page - b.page);
+          entries = [...entries];
+
+          if (selectedBook.title === title) {
+              selectedBook = { ...bookToUpdate };
+          }
+
+          updateStreak();
+          updateWeeklyProgress();
+      }
+  }
+
+  function handleDeleteEntry(event) {
+      const { title, index } = event.detail;
+      const bookToUpdate = entries.find(book => book.title === title);
+      if (bookToUpdate) {
+          bookToUpdate.journal = bookToUpdate.journal.filter((_, i) => i !== index);
+          entries = [...entries];
+
+          if (selectedBook.title === title) {
+              selectedBook = { ...bookToUpdate };
+          }
+
+          updateStreak();
+          updateWeeklyProgress();
+      }
+  }
+
 
     function handleSaveGoals(event) {
         goals = { ...event.detail };
@@ -290,18 +309,25 @@
         on:close={closeSettingsModal}
     />
 
-    <NewCardModal open={newCardModalOpen} onClose={closeNewCardModal} on:addEntry={(e) => {
+    <!-- <NewCardModal open={newCardModalOpen} onClose={closeNewCardModal} on:addEntry={(e) => {
         entries = [...entries, { ...e.detail, journal: [] }];
         updateStreak();
         updateWeeklyProgress();
-    }}/>
+    }}/> -->
 
     <div class="book-card-container">
         <h2 class='topTitle'>My Books</h2>
-        <BookCard entries={entries} on:openJournal={openJournalModal}/>
-        <div class="add-card" on:click={openNewCardModal}>
-            <div class="add-icon">+</div>
-        </div>
+        <BookCard
+          entries={entries}
+          currentStreak={currentStreak}
+          weeklyProgress={weeklyProgress}
+          on:openJournal={openJournalModal}
+          on:addBook={(e) => {
+            entries = [...entries, e.detail.entry];
+            updateStreak();
+            updateWeeklyProgress();
+          }}
+        />
     </div>
 
     <JournalModal
