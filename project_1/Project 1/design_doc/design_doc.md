@@ -126,3 +126,44 @@ Using these sketches, I implemented the UI using Svelte as part of the course re
 First, I will briefly describe the initial iteration, and it's flaws before describing the final implementation.
 
 <h3 style="font-family:Consolas, monospace;">3.1 First Implementation</h3>
+Here is the initial implementation of the sketches. It features a home page with a welcome message for the user along with the date. There is a central box for the streak and user goals. Below the goals are the book cards and the 'Add Book' button as discussed.
+
+![](./imp1-home.png)
+
+Upon clicking a book card, you are greeted with the journal entry screen. This screen showcases the past entries as well as a portal for you to enter the new journal entry.
+
+![](./imp1-journalentry.png)
+
+Finally, clicking the 'Add New Book' button would open up the modal to create a new book, including the author name, title and a cover photo upload.
+
+![](./imp1-newbookmmodal.png)
+
+Besides this iteration being functional, it lacked in a lot of aspects that I needed to work on. After testing and making observations myself, with AM and SP as well as the professor, I came up with the following list of changes to be made.
+
+1. **Bad use of colors**: Even though the current color scheme includes complementary colors, it is not very well used. Some accents feel shadowed while some irrelevant items feel highlighted.
+2. **Incosistent UI Elements**: I experimented a lot while building this, which lead to a few inconsistencies in the elements. The buttons didn't match in color, and the CSS for some of the modals were incomplete.
+3. **Bad Placement of 'Add New Book' Button**: A key highlight to me from the feedback from Professor Jillian was that the 'Add New Book' button feels misplaced and intrusive. Thus, I spent some time trying to integrate it better.
+4. **Half-Baked Features**: Some of the features in the application like editing journal entries, having entries show up in live time (event listeners), editing book names etc. that weren't working.
+5. **Bad Use of Whitespace**: Some of the elements take up more space than required and are not making full use of the screen real-estate.
+
+Given these action items, I went on to work on the next iteration where I attempted to fix these issues.
+
+<h3 style="font-family:Consolas, monospace;">3.2 Second Implementation</h3>
+
+This implementation is the one that I stuck with. Taking feedback from the previous implementation, I cleaned up the colors, removed some of the whitespace to make it seem more airy and casual, and also finished up features. There are only two features I could not finish on time, which are _editing and deleting books_. I included hover buttons, but I did not get time to set up listeners for them.
+
+Below is the home page. In this page, the items shown are the same as above, but it has been cleaned up. The day streak is the center of attention, to remind the user to be accountable. Right below them are the progress bars for the user goals, to show them how well or how bad they are doing on them. Finally, the books are the last thing on the page with a much cleaner 'Add New Books' button that doesn't intrude! (I made it the shape of a book card so it looks obvious what you are adding).
+![](./imp2-homepage.png)
+
+Using the settings button on the top right of the screen, you can access the settings modal. Through this modal, you can add, remove, and edit goals specifically to your needs.
+![](./imp2-settings.png)
+
+Similarly, hitting the (+) icon for adding a new book greets you with a modal that has options to upload a cover picture, and two text boxes for book title and author name.
+![](./imp2-newbookmodal.png)
+
+Finally, the journal entry modal! This is almost exactly the same as the first iteration, except the buttons accent has been changed. All affirmative the buttons in the app were changed to orange to be uniform with the theme.
+![](./imp2-journalentry.png)
+
+Here is a video demonstration of how the app works as a whole!
+
+[![Watch the video](https://img.youtube.com/vi/01C-fYs4ICk/0.jpg)](https://www.youtube.com/watch?v=01C-fYs4ICk)
