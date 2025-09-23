@@ -103,7 +103,26 @@ The key feedback that I recieved was:
 5. Suggested having progress bars for custom goals.
 
 <h3 style="font-family:Consolas, monospace;">2.2 Second Sketch</h3>
+With the feedback from the first sketch, I developed a second sketch which is much more detailed. The key feedback that I took from the previous sketch into this one was that I need to build on top of the current schematic, but work on integrating the goals into it. 
 
 ![Alt text](./design2.jpeg)
 
-<h2 style="font-family:Consolas, monospace;">4. Implementation</h2>
+The home screen in this sketch has a welcome message, greeting the user with their name and stating today's date. Below it, there is a streak mentioned. This streak keeps track of how many days in a row the user has been reading.
+
+We also have progress bars for the goals now, which shows the number of pages read, and how many days the user has read this week.
+
+Right below it is the book card section. This shows the different books the users have registered using the plus icon above it. Each book card has a cover photo, the title and author and the most recent journal entry shortened.
+
+Clicking on the plus icon (+) above the book cards leads you to the book creation modal. Here, you enter the book title, author name and upload a cover photo. 
+
+Clicking on a book card will open up hte journal entry modal. This is similar to the previous sketch, except here each card also includes emoticons which will be recorded while submitting. The interface to enter new entries is right below the container, which takes in the page number, emoticons and a text entry.
+
+Finally, we now have a defined settings modal (opened by clicking on the cog on the top right), which includes the goal settings. Here, you can set specific numbers for each goal, and also decide whether you want the specific goal to be shown or hidden.
+
+<h2 style="font-family:Consolas, monospace;">3. Implementation</h2>
+
+Using these sketches, I implemented the UI using Svelte as part of the course requirements. I went through two iterations making this as well. Initially, I made a version that was very close to fully functional. Upon taking feedback from the Professor on my implementation, I made more changes before submitting.
+
+First, I will briefly describe the initial iteration, and it's flaws before describing the final implementation.
+
+<h3 style="font-family:Consolas, monospace;">3.1 First Implementation</h3>
