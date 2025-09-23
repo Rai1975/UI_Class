@@ -72,11 +72,38 @@ These insights form the foundation for designing an application that supports bo
 
 
 <h2 style="font-family:Consolas, monospace;">2. Design Process</h2>
+In this section, I will be documenting my design process. The decisions made here are based on insights from interviews, and feedback from friends, classmates and the professor too!
 
+<h3 style="font-family:Consolas, monospace;">2.1 Initial Sketch</h3>
 Taking insights from the interviews, this is the first iteration I came up with. I wanted to go with a 2-stage design.
 
 ![Alt text](./design1.jpeg)
 
-<h2 style="font-family:Consolas, monospace;">3. Feedback</h2>
+In this design, there would be a main page with cards representing books, and a plus button to add new books. The book card would show essential details like the name, author and a smaller box would showcase the last journal entry.
+
+Upon clicking a book card, you would be greeted by a modal screen that showcases the journal entries in a time-series mode, based on pages or chapters in the book.
+You will also be able to add new journal entries within the same modal.
+
+Finally, the third page is the modal that pops up when you click the (+) button. This modal screen will let you add books, including the title, author and a picture of the cover.
+
+At this point, I have some ideas for goals to keep the reader accountable, but I do not intend on using all of them. The ones I have written down for now are:
+1. Number of pages
+2. Dayes in the week a book is read
+3. How many notes have been taken
+4. The amount of time spent reading
+
+**-- Feedback to Initial Sketch --**
+I returned to AM and SP to get feedback on these drawings. I recieved both generic as well as specific feedback about features they liked and ones they didn't. This helped me shape my goals better to come up with more sketches.
+
+The key feedback that I recieved was:
+1. Format of app is good; focuses mainly on books while allowing users to journal.
+2. Positive feedback regarding time-series based on pages to report journals.
+3. Suggested to put emoticons to keep track of emotions associated to journal entries
+4. Approval of 'Pages' and 'Days Read' goals, but disapproval of 'Notes Taken' and 'Time Spent Reading' goals.
+5. Suggested having progress bars for custom goals.
+
+<h3 style="font-family:Consolas, monospace;">2.2 Second Sketch</h3>
+
+![Alt text](./design2.jpeg)
 
 <h2 style="font-family:Consolas, monospace;">4. Implementation</h2>
